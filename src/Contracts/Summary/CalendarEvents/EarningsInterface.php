@@ -5,28 +5,28 @@ namespace Yoelpc4\LaravelStock\Contracts\Summary\CalendarEvents;
 interface EarningsInterface
 {
     /**
-     * Get earnings' earning dates
+     * Get earnings' earnings dates
      *
      * @return array
      */
     public function earningsDates();
 
     /**
-     * Get earnings' earning average
+     * Get earnings' earnings average
      *
      * @return float|null
      */
     public function earningsAverage();
 
     /**
-     * Get earnings' earning low
+     * Get earnings' earnings low
      *
      * @return float|null
      */
     public function earningsLow();
 
     /**
-     * Get earnings' earning high
+     * Get earnings' earnings high
      *
      * @return float|null
      */
