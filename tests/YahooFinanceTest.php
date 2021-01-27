@@ -53,9 +53,7 @@ use Yoelpc4\LaravelStock\YahooFinance;
 
 class YahooFinanceTest extends TestCase
 {
-    /**
-     *
-     */
+    /** @test */
     public function testExpectedProvider()
     {
         $stockService = StockService::provider('yahoo_finance');
@@ -63,10 +61,7 @@ class YahooFinanceTest extends TestCase
         $this->assertInstanceOf(YahooFinance::class, $stockService);
     }
 
-    /**
-     * @throws ValidationException
-     * @throws ClientExceptionInterface
-     */
+    /** @test */
     public function testSuccessfulGetSummary()
     {
         $symbol = 'MSFT';
