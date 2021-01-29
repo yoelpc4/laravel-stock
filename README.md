@@ -36,6 +36,8 @@ Then add these lines to your .env.
 STOCK_PROVIDER=yahoo_finance
 
 YAHOO_FINANCE_BASE_URL=https://query1.finance.yahoo.com/
+
+YAHOO_FINANCE_VERSION=10
 ```
 
 ## Package Publication
