@@ -28,6 +28,7 @@ return [
         'yahoo_finance' => [
             'provider' => 'yahoo_finance',
             'base_url' => env('YAHOO_FINANCE_BASE_URL', 'https://query1.finance.yahoo.com/'),
+            'version'  => env('YAHOO_FINANCE_VERSION', 10)
         ],
 
     ],

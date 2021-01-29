@@ -12,6 +12,7 @@ use Yoelpc4\LaravelStock\Contracts\Summary\DefaultKeyStatistics\DefaultKeyStatis
 use Yoelpc4\LaravelStock\Contracts\Summary\Earnings\EarningsInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EarningsHistory\EarningsHistoryInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EarningsTrend\EarningsTrendInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\EsgScoresInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\FinancialData\FinancialDataInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\FundOwnership\FundOwnershipInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\IncomeStatementHistory\IncomeStatementHistoryInterface;
@@ -23,9 +24,13 @@ use Yoelpc4\LaravelStock\Contracts\Summary\InsiderTransactions\InsiderTransactio
 use Yoelpc4\LaravelStock\Contracts\Summary\InstitutionOwnership\InstitutionOwnershipInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\MajorDirectHolders\MajorDirectHoldersInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\NetSharePurchaseActivity\NetSharePurchaseActivityInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\PageViews\PageViewsInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\Price\PriceInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\RecommendationTrend\RecommendationTrendInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SecFillings\SecFilingsInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SectorTrend\SectorTrendInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\SummaryDetail\SummaryDetailInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\SummaryProfile\SummaryProfileInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\UpgradeDowngradeHistory\UpgradeDowngradeHistoryInterface;
 
 interface SummaryInterface
@@ -99,6 +104,13 @@ interface SummaryInterface
      * @return EarningsTrendInterface|null
      */
     public function earningsTrend();
+
+    /**
+     * Get summary's esg scores
+     *
+     * @return EsgScoresInterface|null
+     */
+    public function esgScores();
 
     /**
      * Get summary's financial data
@@ -185,6 +197,27 @@ interface SummaryInterface
     public function netSharePurchaseActivity();
 
     /**
+     * Get summary's page views
+     *
+     * @return PageViewsInterface|null
+     */
+    public function pageViews();
+
+    /**
+     * Get summary's price
+     *
+     * @return PriceInterface|null
+     */
+    public function price();
+
+    /**
+     * Get summary's quote type
+     *
+     * @return PriceInterface|null
+     */
+    public function quoteType();
+
+    /**
      * Get summary's recommendation trend
      *
      * @return RecommendationTrendInterface|null
@@ -204,6 +237,20 @@ interface SummaryInterface
      * @return SectorTrendInterface|null
      */
     public function sectorTrend();
+
+    /**
+     * Get summary's summary detail
+     *
+     * @return SummaryDetailInterface|null
+     */
+    public function summaryDetail();
+
+    /**
+     * Get summary's summary profile
+     *
+     * @return SummaryProfileInterface|null
+     */
+    public function summaryProfile();
 
     /**
      * Get summary's upgrade downgrade history

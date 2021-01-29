@@ -25,6 +25,12 @@ use Yoelpc4\LaravelStock\Contracts\Summary\EarningsTrend\EarningsTrendInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EarningsTrend\EpsRevisionsInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EarningsTrend\EpsTrendInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EarningsTrend\RevenueEstimateInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\EsgScoresInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\PeerEnvironmentPerformanceInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\PeerEsgScorePerformanceInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\PeerGovernancePerformanceInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\PeerHighestControversyPerformanceInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\EsgScores\PeerSocialPerformanceInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\EstimateInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\FinancialData\FinancialDataInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\FundOwnership\FundOwnershipInterface;
@@ -42,11 +48,16 @@ use Yoelpc4\LaravelStock\Contracts\Summary\MajorDirectHolders\MajorDirectHolders
 use Yoelpc4\LaravelStock\Contracts\Summary\MajorHoldersBreakdown\MajorHoldersBreakdownInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\NetSharePurchaseActivity\NetSharePurchaseActivityInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\OwnershipListInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\PageViews\PageViewsInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\Price\PriceInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\QuoteType\QuoteTypeInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\RecommendationTrend\RecommendationTrendInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SecFillings\FilingInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SecFillings\SecFilingsInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SectorTrend\SectorTrendInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\SummaryDetail\SummaryDetailInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\SummaryInterface;
+use Yoelpc4\LaravelStock\Contracts\Summary\SummaryProfile\SummaryProfileInterface;
 use Yoelpc4\LaravelStock\Contracts\Summary\UpgradeDowngradeHistory\UpgradeDowngradeHistoryInterface;
 use Yoelpc4\LaravelStock\StockService;
 use Yoelpc4\LaravelStock\YahooFinance;
@@ -172,6 +183,20 @@ class YahooFinanceTest extends TestCase
             $this->assertInstanceOf(EpsRevisionsInterface::class, $trend->epsRevisions());
         }
 
+        $esgScores = $summary->esgScores();
+
+        $this->assertInstanceOf(EsgScoresInterface::class, $esgScores);
+
+        $this->assertInstanceOf(PeerEsgScorePerformanceInterface::class, $esgScores->peerEsgScorePerformance());
+
+        $this->assertInstanceOf(PeerGovernancePerformanceInterface::class, $esgScores->peerGovernancePerformance());
+
+        $this->assertInstanceOf(PeerSocialPerformanceInterface::class, $esgScores->peerSocialPerformance());
+
+        $this->assertInstanceOf(PeerEnvironmentPerformanceInterface::class, $esgScores->peerEnvironmentPerformance());
+
+        $this->assertInstanceOf(PeerHighestControversyPerformanceInterface::class, $esgScores->peerHighestControversyPerformance());
+
         $this->assertInstanceOf(FinancialDataInterface::class, $summary->financialData());
 
         $fundOwnership = $summary->fundOwnership();
@@ -250,6 +275,12 @@ class YahooFinanceTest extends TestCase
 
         $this->assertInstanceOf(NetSharePurchaseActivityInterface::class, $summary->netSharePurchaseActivity());
 
+        $this->assertInstanceOf(PageViewsInterface::class, $summary->pageViews());
+
+        $this->assertInstanceOf(PriceInterface::class, $summary->price());
+
+        $this->assertInstanceOf(QuoteTypeInterface::class, $summary->quoteType());
+
         $recommendationTrend = $summary->recommendationTrend();
 
         $this->assertInstanceOf(RecommendationTrendInterface::class, $recommendationTrend);
@@ -273,6 +304,10 @@ class YahooFinanceTest extends TestCase
         foreach ($sectorTrend->estimates() as $estimate) {
             $this->assertInstanceOf(EstimateInterface::class, $estimate);
         }
+
+        $this->assertInstanceOf(SummaryDetailInterface::class, $summary->summaryDetail());
+
+        $this->assertInstanceOf(SummaryProfileInterface::class, $summary->summaryProfile());
 
         $upgradeDowngradeHistory = $summary->upgradeDowngradeHistory();
 

@@ -21,13 +21,21 @@ class YahooFinance implements StockProvider
     protected $api;
 
     /**
+     * @var int
+     */
+    protected $version;
+
+    /**
      * YahooFinance constructor.
      *
      * @param  Api  $api
+     * @param  int  $version
      */
-    public function __construct(Api $api)
+    public function __construct(Api $api, int $version = 10)
     {
         $this->api = $api;
+
+        $this->version = $version;
     }
 
     /**
@@ -35,7 +43,7 @@ class YahooFinance implements StockProvider
      */
     public function summary(string $symbol)
     {
-        $request = new SummaryRequest($symbol);
+        $request = new SummaryRequest($this->version, $symbol);
 
         try {
             $this->validate($request);

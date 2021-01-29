@@ -4,6 +4,7 @@ namespace Yoelpc4\LaravelStock;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Yoelpc4\LaravelStock\Contracts\Api\Api;
 use Yoelpc4\LaravelStock\Contracts\Api\Factory;
@@ -72,7 +73,7 @@ class StockServiceManager
             throw new InvalidArgumentException("Stock provider {$name} is not defined");
         }
 
-        $stockProviderMethod = 'create'.ucfirst(\Str::camel($config['provider']));
+        $stockProviderMethod = 'create'.ucfirst(Str::camel($config['provider']));
 
         if (method_exists($this, $stockProviderMethod)) {
             return $this->$stockProviderMethod($config);
@@ -96,7 +97,7 @@ class StockServiceManager
             throw $e;
         }
 
-        return new YahooFinance($api);
+        return new YahooFinance($api, $config['version']);
     }
 
     /**

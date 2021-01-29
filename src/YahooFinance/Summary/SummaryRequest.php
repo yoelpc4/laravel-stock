@@ -13,7 +13,7 @@ class SummaryRequest implements Requestable, Validatable
     /**
      * @var array
      */
-    const AVAILABLE_MODULES = [
+    const MODULES = [
         'assetProfile',
         'balanceSheetHistory',
         'balanceSheetHistoryQuarterly',
@@ -24,6 +24,7 @@ class SummaryRequest implements Requestable, Validatable
         'earnings',
         'earningsHistory',
         'earningsTrend',
+        'esgScores',
         'financialData',
         'fundOwnership',
         'incomeStatementHistory',
@@ -36,9 +37,14 @@ class SummaryRequest implements Requestable, Validatable
         'majorDirectHolders',
         'majorHoldersBreakdown',
         'netSharePurchaseActivity',
+        'pageViews',
+        'price',
+        'quoteType',
         'recommendationTrend',
         'secFilings',
         'sectorTrend',
+        'summaryDetail',
+        'summaryProfile',
         'upgradeDowngradeHistory',
     ];
 
@@ -48,6 +54,11 @@ class SummaryRequest implements Requestable, Validatable
     protected $method = 'GET';
 
     /**
+     * @var int
+     */
+    protected $version;
+
+    /**
      * @var string
      */
     protected $symbol;
@@ -55,10 +66,13 @@ class SummaryRequest implements Requestable, Validatable
     /**
      * SummaryRequest constructor.
      *
+     * @param  int  $version
      * @param  string  $symbol
      */
-    public function __construct(string $symbol)
+    public function __construct(int $version, string $symbol)
     {
+        $this->version = $version;
+
         $this->symbol = $symbol;
     }
 
@@ -67,7 +81,7 @@ class SummaryRequest implements Requestable, Validatable
      */
     public function endpoint()
     {
-        return "v10/finance/quoteSummary/{$this->symbol}";
+        return "v{$this->version}/finance/quoteSummary/{$this->symbol}";
     }
 
     /**
@@ -76,7 +90,7 @@ class SummaryRequest implements Requestable, Validatable
     public function query()
     {
         return [
-            'modules' => implode(',', static::AVAILABLE_MODULES),
+            'modules' => implode(',', static::MODULES),
         ];
     }
 
