@@ -39,12 +39,5 @@ abstract class TestCase extends OrchestraTestCase
             ->bootstrapWith([
                 LoadEnvironmentVariables::class,
             ]);
-
-        $app['config']->set('stock.default', env('STOCK_PROVIDER'));
-
-        $app['config']->set('stock.providers.yahoo_finance', [
-            'provider' => 'yahoo_finance',
-            'base_url' => env('YAHOO_FINANCE_BASE_URL', 'https://query1.finance.yahoo.com/'),
-        ]);
     }
 }

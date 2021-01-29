@@ -20,12 +20,12 @@ class AssetProfile implements AssetProfileInterface
     /**
      * @var string|null
      */
-    protected $address1;
+    protected $firstAddress;
 
     /**
      * @var string|null
      */
-    protected $address2;
+    protected $secondAddress;
 
     /**
      * @var string|null
@@ -118,9 +118,9 @@ class AssetProfile implements AssetProfileInterface
 
         $this->city = $data['city'] ?? null;
 
-        $this->address1 = $data['address1'] ?? null;
+        $this->firstAddress = $data['firstAddress'] ?? null;
 
-        $this->address2 = $data['address2'] ?? null;
+        $this->secondAddress = $data['address2'] ?? null;
 
         $this->zip = $data['zip'] ?? null;
 
@@ -176,17 +176,17 @@ class AssetProfile implements AssetProfileInterface
     /**
      * @inheritDoc
      */
-    public function address1()
+    public function firstAddress()
     {
-        return $this->address1;
+        return $this->firstAddress;
     }
 
     /**
      * @inheritDoc
      */
-    public function address2()
+    public function secondAddress()
     {
-        return $this->address2;
+        return $this->secondAddress;
     }
 
     /**

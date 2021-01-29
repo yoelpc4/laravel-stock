@@ -13,6 +13,7 @@ use Yoelpc4\LaravelStock\YahooFinance\Summary\DefaultKeyStatistics\DefaultKeySta
 use Yoelpc4\LaravelStock\YahooFinance\Summary\Earnings\Earnings;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\EarningsHistory\EarningsHistory;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\EarningsTrend\EarningsTrend;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\EsgScores\EsgScores;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\FinancialData\FinancialData;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\FundOwnership\FundOwnership;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\IncomeStatementHistory\IncomeStatementHistory;
@@ -25,9 +26,14 @@ use Yoelpc4\LaravelStock\YahooFinance\Summary\InstitutionOwnership\InstitutionOw
 use Yoelpc4\LaravelStock\YahooFinance\Summary\MajorDirectHolders\MajorDirectHolders;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\MajorHoldersBreakdown\MajorHoldersBreakdown;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\NetSharePurchaseActivity\NetSharePurchaseActivity;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\PageViews\PageViews;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\Price\Price;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\QuoteType\QuoteType;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\RecommendationTrend\RecommendationTrend;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\SecFilings\SecFilings;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\SectorTrend\SectorTrend;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\SummaryDetail\SummaryDetail;
+use Yoelpc4\LaravelStock\YahooFinance\Summary\SummaryProfile\SummaryProfile;
 use Yoelpc4\LaravelStock\YahooFinance\Summary\UpgradeDowngradeHistory\UpgradeDowngradeHistory;
 
 class Summary implements SummaryInterface
@@ -81,6 +87,11 @@ class Summary implements SummaryInterface
      * @var EarningsTrend|null
      */
     protected $earningsTrend;
+
+    /**
+     * @var EsgScores|null
+     */
+    protected $esgScores;
 
     /**
      * @var FinancialData|null
@@ -143,6 +154,21 @@ class Summary implements SummaryInterface
     protected $netSharePurchaseActivity;
 
     /**
+     * @var PageViews|null
+     */
+    protected $pageViews;
+
+    /**
+     * @var Price|null
+     */
+    protected $price;
+
+    /**
+     * @var QuoteType|null
+     */
+    protected $quoteType;
+
+    /**
      * @var RecommendationTrend|null
      */
     protected $recommendationTrend;
@@ -156,6 +182,16 @@ class Summary implements SummaryInterface
      * @var SectorTrend|null
      */
     protected $sectorTrend;
+
+    /**
+     * @var SummaryDetail|null
+     */
+    protected $summaryDetail;
+
+    /**
+     * @var SummaryProfile|null
+     */
+    protected $summaryProfile;
 
     /**
      * @var UpgradeDowngradeHistory|null
@@ -236,6 +272,12 @@ class Summary implements SummaryInterface
                         $this->earningsTrend = new EarningsTrend($earningsTrend);
                     }
 
+                    $esgScores = $result['esgScores'] ?? null;
+
+                    if ($esgScores) {
+                        $this->esgScores = new EsgScores($esgScores);
+                    }
+
                     $financialData = $result['financialData'] ?? null;
 
                     if ($financialData) {
@@ -308,6 +350,24 @@ class Summary implements SummaryInterface
                         $this->netSharePurchaseActivity = new NetSharePurchaseActivity($netSharePurchaseActivity);
                     }
 
+                    $pageViews = $result['pageViews'] ?? null;
+
+                    if ($pageViews) {
+                        $this->pageViews = new PageViews($pageViews);
+                    }
+
+                    $price = $result['price'] ?? null;
+
+                    if ($price) {
+                        $this->price = new Price($price);
+                    }
+
+                    $quoteType = $result['quoteType'] ?? null;
+
+                    if ($quoteType) {
+                        $this->quoteType = new QuoteType($quoteType);
+                    }
+
                     $recommendationTrend = $result['recommendationTrend'] ?? null;
 
                     if ($recommendationTrend) {
@@ -324,6 +384,18 @@ class Summary implements SummaryInterface
 
                     if ($sectorTrend) {
                         $this->sectorTrend = new SectorTrend($sectorTrend);
+                    }
+
+                    $summaryDetail = $result['summaryDetail'] ?? null;
+
+                    if ($summaryDetail) {
+                        $this->summaryDetail = new SummaryDetail($summaryDetail);
+                    }
+
+                    $summaryProfile = $result['summaryProfile'] ?? null;
+
+                    if ($summaryProfile) {
+                        $this->summaryProfile = new SummaryProfile($summaryProfile);
                     }
 
                     $upgradeDowngradeHistory = $result['upgradeDowngradeHistory'] ?? null;
@@ -414,6 +486,14 @@ class Summary implements SummaryInterface
     public function earningsTrend()
     {
         return $this->earningsTrend;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function esgScores()
+    {
+        return $this->esgScores;
     }
 
     /**
@@ -515,6 +595,30 @@ class Summary implements SummaryInterface
     /**
      * @inheritDoc
      */
+    public function pageViews()
+    {
+        return $this->pageViews;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function price()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function quoteType()
+    {
+        return $this->quoteType;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function recommendationTrend()
     {
         return $this->recommendationTrend;
@@ -534,6 +638,22 @@ class Summary implements SummaryInterface
     public function secFilings()
     {
         return $this->secFilings;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function summaryDetail()
+    {
+        return $this->summaryDetail;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function summaryProfile()
+    {
+        return $this->summaryProfile;
     }
 
     /**

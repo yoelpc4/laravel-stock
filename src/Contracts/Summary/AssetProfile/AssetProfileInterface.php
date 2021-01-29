@@ -19,18 +19,18 @@ interface AssetProfileInterface
     public function city();
 
     /**
-     * Get asset profile's address1
+     * Get asset profile's first address
      *
      * @return string|null
      */
-    public function address1();
+    public function firstAddress();
 
     /**
-     * Get asset profile's address2
+     * Get asset profile's second address
      *
      * @return string|null
      */
-    public function address2();
+    public function secondAddress();
 
     /**
      * Get asset profile's zip
